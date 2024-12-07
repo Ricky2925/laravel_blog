@@ -14,7 +14,7 @@ class RegisterController extends Controller
         $this->middleware('check.login')->only('showRegistrationForm');
     }
 
-    // 显示注册表单
+    // Show the registration form
     public function showRegistrationForm()
     {
        
@@ -23,17 +23,17 @@ class RegisterController extends Controller
     }
 
 
-    // 处理注册逻辑
+    // Handle the registration logic
     public function register(Request $request)
     {
         $messages = [
             'email.unique' => 'The email address is already taken by another user.',
         ];
         
-       // 验证注册表单数据
+       // Validate registration form data
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], // 检查 email 唯一性
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], // Check if email is unique
             'password' => ['required', 'string', 'min:8'],
         ],$messages );
         $user = $this->create($request->all());
@@ -44,7 +44,7 @@ class RegisterController extends Controller
        
     }
 
-    // 自定义验证规则
+    // Custom validation rules
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -54,7 +54,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    // 创建用户
+    // Create a new user
     protected function create(array $data)
     {
         return User::create([

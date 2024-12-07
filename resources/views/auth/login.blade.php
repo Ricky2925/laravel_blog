@@ -12,7 +12,7 @@
             <div class="card-body">
                 <h2 class="card-title text-center">Login</h2>
 
-                <!-- 登录表单 -->
+                <!-- Login -->
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
 
@@ -38,7 +38,7 @@
                     <button type="submit" class="btn btn-primary w-100">Login</button>
                 </form>
 
-                <!-- 注册链接 -->
+                <!-- Register -->
                 <div class="text-center mt-3">
                     <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p>
                     <p>Go Home<a href="/">Home here</a></p>

@@ -1,4 +1,4 @@
-@extends('layouts.app') <!-- 这里是布局文件的引用 -->
+@extends('layouts.app') <!-- Reference layout file -->
 
 @section('content')
 
@@ -11,13 +11,13 @@
                         <div class="col-md-6 col-sm-6">
                             <article class="blog-teaser">
                                 <header>
-                                    <!-- 显示文章的图片 -->
+                                    <!-- Displays images of post -->
                                     <img src="{{ asset('storage/' . $post->img) }}" alt="">
 
-                                    <!-- 显示文章标题 -->
+                                    <!-- Displays the title of post -->
                                     <h3><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></h3>
 
-                                    <!-- 显示文章的发布日期和作者 -->
+                                    <!-- Displays the post's publication date and author -->
                                     <span class="meta">{{ $post->published_at->format('d F Y') }}, {{ $post->author }}</span>
                                     <hr>
                                 </header>

@@ -25,13 +25,13 @@
     <style>
         .logout-btn {
             color: #444;
-            text-decoration: none; /* 去除下划线 */
+            text-decoration: none; /* Remove underline */
             font-size: 16px;
         }
 
         .logout-btn:hover {
-            color: red; /* 鼠标悬停时颜色为红色 */
-            text-decoration: none; /* 确保悬停时也没有下划线 */
+            color: red; /* Change color to red on hover */
+            text-decoration: none; /* Ensure no underline on hover */
         }
     </style>
 </head>
@@ -40,7 +40,6 @@
         <div class="widewrapper masthead">
             <div class="container">
                 <a href="/" id="logo">
-	    <!-- <img src="{{ asset('img/logo.png') }}" alt="clean Blog">-->
 			<h1 style='color:red;'>Explore Tesla</h1>
                 </a>
 

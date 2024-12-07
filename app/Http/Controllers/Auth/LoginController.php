@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
-    // 在构造函数中应用中间件
+    // Apply middleware in the constructor
     public function __construct()
     {
-        // 只让未登录的用户访问登录页面，已登录用户会被重定向
+        // Only allow non-logged-in users to access the login page, logged-in users will be redirected
         $this->middleware('check.login')->only('showLoginForm');
     }
 
@@ -19,24 +19,24 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
-     // 处理登录请求
+     // Handle the login request
      public function login(Request $request)
      {
-         // 验证请求数据
+         // Validate the request data
          $this->validateLogin($request);
  
-         // 尝试登录用户
+         // Attempt to log in the user
          if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
-             return redirect()->intended(route('welcome')); // 登录成功，重定向到原定页面
+             return redirect()->intended(route('welcome')); // On successful login, redirect to the intended page
          }
  
-         // 如果登录失败
+          // If login fails
          return back()->withErrors([
              'password' => 'The provided credentials do not match our records.',
          ]);
      }
  
-     // 验证登录数据
+     // Validate login data
      protected function validateLogin(Request $request)
      {
          $request->validate([
@@ -45,13 +45,13 @@ class LoginController extends Controller
          ]);
      }
 
-    // 注销用户
+    // Log out the user
     public function logout(Request $request)
     {
-        Auth::logout(); // 注销当前用户
-        $request->session()->invalidate(); // 清空会话
-        $request->session()->regenerateToken(); // 重新生成 CSRF token
+        Auth::logout(); // Log out the current user
+        $request->session()->invalidate(); // Invalidate the session
+        $request->session()->regenerateToken(); // Regenerate the CSRF token
 
-        return redirect('/'); // 重定向到首页或其他页面
+        return redirect('/'); // Redirect to the homepage or another page
     }
 }

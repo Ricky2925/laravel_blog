@@ -32,14 +32,14 @@
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
         <!-- Begin page -->
-        @include('layouts.admin-header') <!-- 引入header -->
+        @include('layouts.admin-header') <!-- Include header -->
     <!-- ========== Left Sidebar Start ========== -->
     <div class="vertical-menu">
 
-        @include('layouts.admin-left') <!-- 引入left -->
+        @include('layouts.admin-left') <!-- Include left sidebar -->
     </div>
 <!-- Left Sidebar End -->
-        @yield('content') <!-- 动态加载不同的页面内容 -->
-        @include('layouts.admin-footer') <!-- 引入left -->
+        @yield('content') <!-- Dynamically load different page content  -->
+        @include('layouts.admin-footer') <!-- Include footer -->
  
             

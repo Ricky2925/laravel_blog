@@ -64,13 +64,13 @@
                                     <label for="image" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-10">
                                         @if($post->img)
-                                            <!-- 显示当前图片 -->
+                                            <!-- Display current image -->
                                             <div>
                                                 <img src="{{ asset('storage/' . $post->img) }}" alt="Current Image" style="width: 200px; height: auto;">
                                             </div>
                                         @endif
 
-                                        <!-- 上传新的图片 -->
+                                        <!-- Upload a new image -->
                                         <input class="form-control" type="file" name="img" id="image">
 
                                         @error('img')

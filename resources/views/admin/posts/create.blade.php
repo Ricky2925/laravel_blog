@@ -36,7 +36,7 @@
                                 @csrf
                                 <!-- @method('PUT') -->
 
-                                <!-- Title Input -->
+                                <!-- Title input -->
                                 <div class="row mb-3">
                                     <label for="title" class="col-sm-2 col-form-label">Title</label>
                                     <div class="col-sm-10">
@@ -65,7 +65,7 @@
                                     <div class="col-sm-10">
                                       
 
-                                        <!-- 上传新的图片 -->
+                                        <!-- Upload a new image -->
                                         <input class="form-control" type="file" name="img" id="image">
 
                                         @error('img')
@@ -85,7 +85,7 @@
                             </form>
                         </div>
                     </div>
-                </div> <!-- end col -->
+                </div> 
             </div>
             <!-- end edit form -->
 

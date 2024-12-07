@@ -5,37 +5,37 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage; // 引入 Storage 类
+use Illuminate\Support\Facades\Storage; // Import the Storage class
 class PostController extends Controller
 {
-    // 显示所有文章
+    // Display all posts
     public function index()
     {
-        // 获取所有文章并传递给视图
+        // Fetch all posts and pass them to the view
         $posts = Post::all();
         return view('admin.posts.index', compact('posts'));
     }
-    // 添加文章
+    // Show the form to create a new post
     public function create(){
         return view('admin.posts.create');
     }
 
    
-    // 存储
+    // Store a new post
     public function store(Request $request)
     {
         
-        // 表单验证，图片字段是必填的
+        // Validate the form data, the image field is required
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 图片是必填的
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Image is required
         ]);
         
-        // 保存图片并获取文件路径
+         // Save the image and get the file path
         $imagePath = $request->file('img')->store('images', 'public');
     
-        // 创建新文章
+        // Create a new post
         $post = new Post();
         $post->title = $validated['title'];
         $post->content = $validated['content'];
@@ -44,50 +44,50 @@ class PostController extends Controller
         $post->published_at = now();
         $post->save();
     
-        // 返回成功消息并重定向
+        // Return a success message and redirect
         return redirect()->route('admin.posts.index')->with('success', 'Post created successfully!');
     }
     
 
 
-    // 编辑文章
+    // Show the form to edit a post
     public function edit(Post $post)
     {
         return view('admin.posts.edit', compact('post'));
     }
 
-
+        // Update an existing post
         public function update(Request $request, Post $post)
         {
-            // 验证输入
+            // Validate the input
             $validated = $request->validate([
                 'title' => 'required|string|max:255',
                 'content' => 'required',
                 'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 图片验证
             ]);
     
-            // 如果有上传新的图片
+            // If a new image is uploaded
             if ($request->hasFile('img')) {
-                // 删除旧的图片
+                // Delete the old image
                 if ($post->img && Storage::exists('public/images/' . $post->img)) {
                     Storage::delete('public/images/' . $post->img);
                 }
     
-                // 上传新图片并获取路径
+                // Upload the new image and get the file path
                 $imagePath = $request->file('img')->store('images', 'public');  // 存储在 `storage/app/public/images` 文件夹下
             } else {
-                // 如果没有上传新图片，保持原有的图片
+                // If no new image is uploaded, keep the existing image
                 $imagePath = $post->img;
             }
     
-            // 更新文章
+            // Update the post
             $post->update([
                 'title' => $validated['title'],
                 'content' => $validated['content'],
-                'img' => $imagePath,  // 更新图片路径
+                'img' => $imagePath,  // Update image path
             ]);
     
-            // 重定向回文章列表页面，并显示成功消息
+            // Redirect back to the post list and show success message
             return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
         }
    
@@ -95,13 +95,13 @@ class PostController extends Controller
     
     
 
-    // 删除文章
+    // Delete a post
     public function destroy(Post $post)
     {
-        // 删除文章
+        // Delete the post
         $post->delete();
 
-        // 重定向回文章列表，并显示成功消息
+        // Redirect back to the post list and show success message
         return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
     }
 }

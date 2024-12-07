@@ -8,12 +8,12 @@ use App\Models\User;
 class AdminController extends Controller
 {
     
-    // 显示后台首页
+    // Display the admin dashboard (or homepage)
     public function index()
     {
-        $users = User::all();  // 或者根据需要进行分页 User::paginate(10);
-        return view('admin.users.index', compact('users'));
+        $users = User::all();  // Retrieve all users (or paginate if needed: User::paginate(10));
+        return view('admin.users.index', compact('users'));// Return a view with users data
     }
 
-    // 其他后台功能方法可以继续添加
+
 }

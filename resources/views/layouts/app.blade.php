@@ -8,17 +8,17 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <!-- 引入全局CSS -->
+    <!-- Include global CSS -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400italic" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="theme-styles">
 </head>
 <body>
-    @include('layouts.header') <!-- 引入header -->
+    @include('layouts.header') <!-- Include header -->
 
-    @yield('content') <!-- 动态加载不同的页面内容 -->
+    @yield('content') <!-- Dynamically load different page content -->
 
-    @include('layouts.footer') <!-- 引入footer -->
+    @include('layouts.footer') <!-- Include footer -->
 </body>
 </html>

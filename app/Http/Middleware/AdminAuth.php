@@ -11,17 +11,17 @@ class AdminAuth
 {
     public function handle($request, Closure $next)
     {
-        // 检查用户是否已登录且是管理员
+        // Check if the user is logged in and is an admin using the 'admin' guard
         if (Auth::guard('admin')->check()) {
             $user = Auth::guard('admin')->user();
             
             if ($user->is_admin == 1) {
-                // 如果是管理员，继续请求
+                // If the user is an admin, allow the request to proceed
                 return $next($request);
             }
         }
 
-        // 如果未登录或不是管理员，跳转到登录页面
+        // If the user is not logged in or is not an admin, redirect to the admin login page
         return redirect()->route('admin.login');
     }
 }

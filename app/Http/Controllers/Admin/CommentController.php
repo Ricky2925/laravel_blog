@@ -10,56 +10,56 @@ class CommentController extends Controller
     
     public function index()
     {
-        // 获取所有评论，包含评论的用户和文章信息
+        // Display all comments, including related user and post information
         $comments = Comment::with('user', 'post')->get();
       
-        // 返回视图，并将评论数据传递给视图
+         // Return the view and pass the comments data to the view
         return view('admin.comments.index', compact('comments'));
     }
 
-    // 删除评论
+    
     public function destroy(Comment $comment)
     {
-        // 获取与该评论相关联的文章
+        // Get the post associated with the comment
         $post = $comment->post;
     
-        // 删除评论
+        // Delete a comment
         $comment->delete();
     
-        // 更新文章的评论数（减去1）
+        // Decrease the comment count on the related post by 1
         $post->decrement('comment_count');
     
-        // 重定向回评论列表，并显示成功消息
+        // Redirect back to the comment list with a success message
         return redirect()->route('admin.comments.index')->with('success', 'Comment deleted successfully.');
     }
 
-     // 显示编辑表单
+     // Show the edit form for a comment
      public function edit($id)
      {
-         // 获取指定评论
+         // Get the specified comment
          $comment = Comment::findOrFail($id);
  
-         // 返回编辑视图并传递评论数据
+         // Return the edit view and pass the comment data
          return view('admin.comments.edit', compact('comment'));
      }
-     // 更新评论
+     // Update a comment
     public function update(Request $request, $id)
     {
-        // 验证表单数据
+        // Validate the form data
         $validated = $request->validate([
-            'message' => 'required|string|min:1|max:500',  // 评论内容的验证规则
+            'message' => 'required|string|min:1|max:500',  // Validation rule for comment content
         ]);
 
-        // 获取指定评论
+        // Get the specified comment
         $comment = Comment::findOrFail($id);
 
-        // 更新评论内容
+        // Update the comment message
         $comment->message = $validated['message'];
 
-        // 保存更新
+        // Save the updated comment
         $comment->save();
 
-        // 返回到评论列表，并显示更新成功的消息
+        // Redirect back to the comment list with a success message
         return redirect()->route('admin.comments.index')->with('success', 'Comment updated successfully.');
     }
 }

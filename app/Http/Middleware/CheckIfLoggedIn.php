@@ -16,13 +16,13 @@ class CheckIfLoggedIn
      */
     public function handle(Request $request, Closure $next)
     {
-        // 检查用户是否已登录
+        // Check if the user is logged in
         if (auth()->check()) {
-            // 如果已登录，重定向到主页
-            return redirect()->route('welcome');  // 这里可以是你希望跳转的任何页面
+            // If the user is logged in, redirect to the welcome page
+            return redirect()->route('welcome');  // You can change 'welcome' to any route you wish
         }
 
-        // 如果未登录，继续处理请求
+         // If the user is not logged in, continue with the request
         return $next($request);
     }
 }

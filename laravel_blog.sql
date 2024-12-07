@@ -21,9 +21,9 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL COMMENT '用户id',
-  `post_id` int(11) NOT NULL COMMENT '文章id',
-  `message` text COMMENT '评论内容',
+  `user_id` int(11) NOT NULL COMMENT ,
+  `post_id` int(11) NOT NULL COMMENT ,
+  `message` text COMMENT ,
   `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -43,16 +43,16 @@ INSERT INTO `comments` VALUES ('16', '6', '1', 'hi', '2024-11-28 03:20:01', '202
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL COMMENT '标题',
-  `img` varchar(255) DEFAULT NULL COMMENT '图片',
-  `content` text NOT NULL COMMENT '内容',
-  `author` varchar(255) DEFAULT NULL COMMENT '作者',
-  `published_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '发布时间',
-  `comment_count` int(11) DEFAULT '0' COMMENT '评论个数',
+  `title` varchar(255) NOT NULL COMMENT,
+  `img` varchar(255) DEFAULT NULL COMMENT,
+  `content` text NOT NULL COMMENT,
+  `author` varchar(255) DEFAULT NULL COMMENT,
+  `published_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT,
+  `comment_count` int(11) DEFAULT '0' COMMENT,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='文章表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT=;
 
 -- ----------------------------
 -- Records of posts
@@ -80,6 +80,6 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'peter1', '123457@qq.com', '$2y$10$0HcExwWDAOMp/w7m3XusZ.UQFwcTQvk6gmKjmGVILAx7YrjSs/gRq', '2024-11-27 09:47:35', '2024-11-27 09:47:35', '0');
-INSERT INTO `users` VALUES ('6', 'peter', '1234567@qq.com', '$2y$10$0HcExwWDAOMp/w7m3XusZ.UQFwcTQvk6gmKjmGVILAx7YrjSs/gRq', '2024-11-27 10:52:12', '2024-11-27 10:52:12', '1');
-INSERT INTO `users` VALUES ('8', 'jenny', '666@qq.com', '$2y$10$fIVQKNWWC6pHXA8ui9QTiOvrRE0pbO8foXdoTZBFKrQsyYmP7jt..', '2024-11-28 03:18:42', '2024-11-28 03:18:42', '0');
+INSERT INTO `users` VALUES ('1', 'Jerry', 'jerrt@uws.com', '$2y$10$0HcExwWDAOMp/w7m3XusZ.UQFwcTQvk6gmKjmGVILAx7YrjSs/gRq', '2024-11-27 09:47:35', '2024-11-27 09:47:35', '0');
+INSERT INTO `users` VALUES ('6', 'Peter', 'peter@uws.com', '$2y$10$0HcExwWDAOMp/w7m3XusZ.UQFwcTQvk6gmKjmGVILAx7YrjSs/gRq', '2024-11-27 10:52:12', '2024-11-27 10:52:12', '1');
+INSERT INTO `users` VALUES ('8', 'Jenny', 'jenny@uws.com', '$2y$10$fIVQKNWWC6pHXA8ui9QTiOvrRE0pbO8foXdoTZBFKrQsyYmP7jt..', '2024-11-28 03:18:42', '2024-11-28 03:18:42', '0');

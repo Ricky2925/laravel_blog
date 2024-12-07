@@ -10,34 +10,34 @@ class CommentController extends Controller
     
     public function store(Request $request)
     {
-         // 检查用户是否已登录
+         // Check if the user is logged in
         if (!auth()->check()) {
             return redirect()->route('login')->with('error', 'You must be logged in to comment.');
         }
         
-        // 验证用户提交的数据
+        // Validate the incoming data
         $request->validate([
-            'post_id' => 'required|integer|exists:posts,id', // 确保 post_id 是整数且在 posts 表中存在
+            'post_id' => 'required|integer|exists:posts,id', 
             'message' => 'required|string|max:1000',
         ]);
 
-        // 存储评论到数据库
+        // Store the comment in the database
         $comment = Comment::create([
             'message' => $request->input('message'),
-            'user_id' => auth()->id(), // 假设评论需要关联用户
-            'post_id' => $request->input('post_id'), // 替换为实际文章 ID
+            'user_id' => auth()->id(), // Associate the comment with the logged-in user
+            'post_id' => $request->input('post_id'), // Use the provided post_id for the comment
         ]);
-         // 可选择增加评论计数
-        $post = $comment->post; // 获取当前评论关联的文章
-        $post->increment('comment_count'); // 增加评论数
+         // Increment the comment count for the related post
+        $post = $comment->post; // Get the post associated with the comment
+        $post->increment('comment_count'); // Increment the comment_count on the post
 
-        // 返回到前端页面
+         // Redirect back to the post page with a success message
         return redirect()->route('posts.show', $request->input('post_id'))->with('success', 'Comment added successfully!');
     }
 
     public function show($id)
     {
-        // 获取指定文章及其评论
+        // Retrieve the post with its associated comments and the user who made each comment
         $post = Post::with('comments.user')->findOrFail($id);
 
         
@@ -48,22 +48,22 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         
-        // 判断当前用户是否是评论的作者
+        // Check if the logged-in user is the author of the comment
         if (auth()->id() === $comment->user_id) {
-            // 删除评论
+            // Delete the comment if the user is the author
             $comment->delete();
 
-            // 返回到文章页面，带上成功信息
+            // Redirect back to the post page with a success message
             return redirect()->route('posts.show', $comment->post_id)->with('success', 'Comment deleted successfully!');
         }elseif(auth()->user()->is_admin == 1){
-             // 删除评论
+             // Delete the comment if the user is an admin
              $comment->delete();
 
-             // 返回到文章页面，带上成功信息
+             // Redirect back to the post page with a success message
              return redirect()->route('posts.show', $comment->post_id)->with('success', 'Comment deleted successfully!');
         }
 
-        // 如果不是评论的作者，返回错误
+         // If the user is not the author and not an admin, show an error
         return redirect()->route('posts.show', $comment->post_id)->with('error', 'You can only delete your own comments.');
     }
 }

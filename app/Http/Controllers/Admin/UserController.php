@@ -9,26 +9,26 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    // 显示所有用户
+    // Display all users
     public function index()
     {
-        $users = User::all();  // 或者根据需要进行分页 User::paginate(10);
+        $users = User::all();  // You can also paginate users if needed: User::paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
-    // 显示添加用户表单
+    // Show the add user form
     public function create()
     {
         return view('admin.users.create');
     }
 
-    // 存储新用户
+    // Store a new user
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:8|confirmed',  // 确保密码字段有确认
+            'password' => 'required|min:6|confirmed',  // Ensure the password confirmation field is present
         ]);
 
         $user = new User();
@@ -42,42 +42,42 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'User added successfully.');
     }
 
-    // 显示用户编辑表单
+    // Show the user edit form
     public function edit(User $user)
     {
         return view('admin.users.edit', compact('user'));
     }
 
-    // 更新用户信息
+    // Update user information
     public function update(Request $request, User $user)
     {
       
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,  // 排除当前用户的 email
-            'password' => 'nullable|min:6',  // 如果提供新密码，进行验证
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,  // Exclude the current user's email from uniqueness check
+            'password' => 'nullable|min:6',  // If a new password is provided, validate it
         ]);
         
-         // 更新用户信息
+         // Update user information
          $user->name = $validated['name'];
          $user->email = $validated['email'];
  
-         // 如果提供了新密码，则更新密码
+          // If a new password is provided, update it
          if ($request->filled('password')) {
              $user->password = Hash::make($validated['password']);
          }
  
-         // 如果是管理员字段需要更新
+         // Update the admin status if provided
          $user->is_admin = $request->has('is_admin') ? 1 : 0;
  
-         // 保存更新
+         // Save the updated user
          $user->save();
  
-         // 返回更新成功的消息
+         // Return a success message
          return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
     }
 
-    // 删除用户
+    // Delete a user
     public function destroy(User $user)
     {
         $user->delete();

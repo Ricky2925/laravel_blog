@@ -5,7 +5,7 @@
         </header>
         <div class="body">
             <ul class="clean-list">
-                <!-- 使用传递的 featuredPosts -->
+                <!-- Using the passed featuredPosts -->
                 @foreach($featuredPosts as $featuredPost)
                     <li>
                         <a href="{{ route('posts.show', $featuredPost->id) }}">

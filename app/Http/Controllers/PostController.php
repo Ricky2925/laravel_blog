@@ -8,17 +8,17 @@ class PostController extends Controller
 {
     public function index()
     {
-        // 从数据库获取所有文章
-        $posts = Post::latest()->get(); // 按发布时间倒序获取所有文章
+        // Get all posts from the database, ordered by the most recent
+        $posts = Post::latest()->get(); // Fetch all posts ordered by the latest date
 
-        // 返回视图，并将文章数据传递给视图
+        // Return the 'welcome' view, passing the posts data
         return view('welcome', compact('posts'));
     }
 
     public function show(Post $post)
     {
         $featuredPosts = Post::latest()->take(5)->get(); 
-        // 显示单篇文章的详细信息
+        // Return the 'posts.show' view with the post and featured posts data
         return view('posts.show', compact('post','featuredPosts'));
     }
 }
