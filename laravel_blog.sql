@@ -1,17 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : 本地
-Source Server Version : 50540
-Source Host           : localhost:3306
-Source Database       : laravel_blog
-
-Target Server Type    : MYSQL
-Target Server Version : 50540
-File Encoding         : 65001
-
-Date: 2024-11-28 17:24:48
-*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -33,8 +19,8 @@ CREATE TABLE `comments` (
 -- Records of comments
 -- ----------------------------
 INSERT INTO `comments` VALUES ('8', '6', '2', 'This article is very good', '2024-11-27 16:22:32', '2024-11-27 16:22:32');
-INSERT INTO `comments` VALUES ('10', '1', '4', '非常好', '2024-11-27 17:43:40', '2024-11-27 17:43:40');
-INSERT INTO `comments` VALUES ('13', '6', '1', '今天天气非常好', '2024-11-28 03:12:13', '2024-11-28 03:12:13');
+INSERT INTO `comments` VALUES ('10', '1', '4', 'nice', '2024-11-27 17:43:40', '2024-11-27 17:43:40');
+INSERT INTO `comments` VALUES ('13', '6', '1', 'good', '2024-11-28 03:12:13', '2024-11-28 03:12:13');
 INSERT INTO `comments` VALUES ('16', '6', '1', 'hi', '2024-11-28 03:20:01', '2024-11-28 03:20:01');
 
 -- ----------------------------
@@ -73,7 +59,7 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `is_admin` tinyint(4) DEFAULT '0' COMMENT '1的时候为管理员',
+  `is_admin` tinyint(4) DEFAULT '0' COMMENT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
